@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   <script type="text/javascript" src="https://bitmovin-a.akamaihd.net/bitmovin-player/stable/8.1.0/bitmovinplayer.js"></script>
+</head>
+<body>
+<div id="my-player"></div>
+<div id="loggDiv" style="z-index: 100000;position:absolute;background:rgba(0,0,0,0.5);color: lime;bottom:100px;left: 10px;width:800px;"></div>
+<script type="text/javascript">
+function logg(str) {
+    loggDiv.innerHTML += '<br>'+ str;
+}
+var container = document.getElementById('my-player');
+
+var url_string = window.location.href;
+var url = new URL(url_string);
+var c = url.searchParams.get("c");
+var key = url.searchParams.get("key");
+
+var playerConfig = {
+    key: key
+};
+var source = {
+    title: "Getting Started with the Bitmovin Player",
+    description: "Bitmovin Player",
+    dash: 'https://spark.akamaized.net/dash/live/2003449/spark/manchesterunited_spark/master.mpd',
+    
+    var url_string = window.location.href
+    var url = new URL(url_string);
+    var c = url.searchParams.get("c");
+    drm: {
+        widevine: {
+            LA_URL: 'https://widevine.license.istreamplanet.com/widevine/api/license/'+c,
+        },
+        playready: {
+            LA_URL: 'https://playready.license.istreamplanet.com/api/license'
+        }
+    }
+};
+
+
+var player = new bitmovin.player.Player(container, playerConfig);
+ 
+player.load(source).then(function (p) {
+  console.log('Successfully created Bitmovin Player instance');
+  player.play();
+  logg('ok');
+}, function (reason) {
+  console.log('Error while creating Bitmovin Player instance', reason);
+  logg(JSON.stingify(reason));
+});
+</script>
+</body>
+</html>
