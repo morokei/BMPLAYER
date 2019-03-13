@@ -27,9 +27,6 @@ var source = {
     description: "Bitmovin Player",
     dash: 'https://spark.akamaized.net/dash/live/2003449/spark/manchesterunited_spark/master.mpd',
     
-    var url_string = window.location.href
-    var url = new URL(url_string);
-    var c = url.searchParams.get("c");
     drm: {
         widevine: {
             LA_URL: 'https://widevine.license.istreamplanet.com/widevine/api/license/'+c,
