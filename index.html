@@ -28,12 +28,19 @@
 
 function setupPlayer() {
 
+  
+  /*
   var url_string = window.location.href;
   var url = new URL(url_string);
   var c = url.searchParams.get("c");
   var key = url.searchParams.get("key");
-  var KID = url.searchParams.get("KID");
-  
+  var KID = url.searchParams.get("KID"); */
+    
+    var regex = RegExp('key=(.*)&c=(.*)','g'); 
+    var res = regex.exec(window.location.search);
+    var key = res[1];
+    var c = res[2];
+
 	var conf = {
 		key : key,
 		playback : {
@@ -71,8 +78,7 @@ function setupPlayer() {
 				LA_URL: 'https://widevine.license.istreamplanet.com/widevine/api/license/'+c,
 			},
 			playready: {
-				LA_URL: 'https://playready.license.istreamplanet.com/api/license',
-				KID: KID
+				LA_URL: 'https://playready.license.istreamplanet.com/api/license'
 			}
 		}
 	}
